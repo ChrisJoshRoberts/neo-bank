@@ -19,9 +19,11 @@ import { authFormSchema } from '@/lib/utils'
 const AuthForm = ({type}: {type:string}) => {
   const [user, setUser] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
+
+  const formSchema = authFormSchema(type)
   // 1. Define your form.
-  const form = useForm<z.infer<typeof authFormSchema>>({
-    resolver: zodResolver(authFormSchema),
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
       password: "",
@@ -29,7 +31,7 @@ const AuthForm = ({type}: {type:string}) => {
   })
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof authFormSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     setIsLoading(true)
@@ -74,6 +76,50 @@ const AuthForm = ({type}: {type:string}) => {
           <>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+              {type === 'sign-up' && (
+                <>
+                <div className="flex gap-4">
+                  <CustomInput
+                    label="First name"
+                    control={form.control}
+                    name="firstName"
+                    placeholder="Enter your first name"
+                  />
+                  <CustomInput
+                    label="Last name"
+                    control={form.control}
+                    name="lastName"
+                    placeholder="Enter your last name"
+                  />
+                </div>
+                  <CustomInput
+                    label="Address"
+                    control={form.control}
+                    name="address1"
+                    placeholder="Enter your address"
+                  />
+                  <div className="flex gap-4">
+                    <CustomInput
+                      label="State"
+                      control={form.control}
+                      name="state"
+                      placeholder="Enter your state"
+                    />
+                    <CustomInput
+                      label="Postal code"
+                      control={form.control}
+                      name="postalCode"
+                      placeholder="Eg. 7700"
+                    />
+                  </div>
+                  <CustomInput
+                    label="Date of birth"
+                    control={form.control}
+                    name="dateOfBirth"
+                    placeholder="yyyy-mm-dd"
+                  />
+                </>
+              )}
               <CustomInput
                 name="email"
                 label="Email Address"
