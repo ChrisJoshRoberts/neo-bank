@@ -15,7 +15,7 @@ import {
 import CustomInput from './CustomInput'
 import { authFormSchema } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
-import { SignUp, signIn } from '@/lib/actions/user.actions'
+import { signUp } from '@/lib/actions/user.actions'
 
 
 const AuthForm = ({type}: {type:string}) => {
@@ -36,11 +36,10 @@ const AuthForm = ({type}: {type:string}) => {
   // 2. Define a submit handler.
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsLoading(true)
-
     try {
       // Sign up with Appwrite & create plain token
       if (type === 'sign-up') {
-        const newUser = await SignUp(data);
+        const newUser = await signUp(data);
 
         setUser(newUser)
       }
