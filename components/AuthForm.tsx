@@ -15,6 +15,7 @@ import {
 import CustomInput from './CustomInput'
 import { authFormSchema } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
+import { SignUp, signIn } from '@/lib/actions/user.actions'
 
 
 const AuthForm = ({type}: {type:string}) => {
@@ -39,16 +40,16 @@ const AuthForm = ({type}: {type:string}) => {
     try {
       // Sign up with Appwrite & create plain token
       if (type === 'sign-up') {
-        // const newUser = await SignUp(data);
+        const newUser = await SignUp(data);
 
-        // setUser(newUser)
+        setUser(newUser)
       }
       if(type === 'sign-in') {
-        // const response = await signIn({
-        //   email: data.email,
-        //   password: data.password
-        // })
-        // if(response) router.push('/')
+        const response = await signIn({
+          email: data.email,
+          password: data.password
+        })
+        if(response) router.push('/')
       }
     } catch (error) {
       console.error(error)
