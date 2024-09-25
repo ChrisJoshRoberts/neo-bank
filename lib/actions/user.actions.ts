@@ -52,6 +52,6 @@ export async function logoutAccount() {
     cookies().delete("appwrite-session");
     await account.deleteSession("current");
   } catch (error) {
-    ret urn null;
+    return null;
   }
 }
