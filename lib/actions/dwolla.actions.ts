@@ -10,7 +10,7 @@ const getEnvironment = (): "production" | "sandbox" => {
       return "sandbox";
     case "production":
       return "production";
-    default: 
+    default:
       throw new Error(
         "Dwolla environment should either be set to `sandbox` or `production`"
       );

@@ -40,7 +40,19 @@ const AuthForm = ({ type }: { type: string }) => {
     setIsLoading(true)
     try {
       if (type === 'sign-up') {
-        const newUser = await signUp(data);
+        const userData = {
+          firstName: data.firstName!,
+          lastName: data.lastName!,
+          email: data.email,
+          password: data.password,
+          address1: data.address1!,
+          state: data.state!,
+          postalCode: data.postalCode!,
+          dateOfBirth: data.dateOfBirth!,
+          ssn: data.ssn!,
+          city: data.city!
+        }
+        const newUser = await signUp(userData);
         setUser(newUser);
       }
       if (type === 'sign-in') {
@@ -124,12 +136,24 @@ const AuthForm = ({ type }: { type: string }) => {
                     name="address1"
                     placeholder="Enter your address"
                   />
+                                      <CustomInput
+                    label="City"
+                    control={form.control}
+                    name="city"
+                    placeholder="Enter your city"
+                    />
                   <div className="flex gap-4">
                     <CustomInput
                       label="State"
                       control={form.control}
                       name="state"
                       placeholder="Enter your state"
+                    />
+                    <CustomInput
+                    label="SSN"
+                    control={form.control}
+                    name="ssn"
+                    placeholder="Enter your SSN"
                     />
                     <CustomInput
                       label="Postal code"
